@@ -33,30 +33,32 @@ shinyServer(
       input$file
     })
     
+    
+    
+    output$abt<-renderPrint({
+    
+      input$at})
+    
+    
     output$table<-renderUI({
       if(is.null(input$file))
         h4("good")
       else
         tabsetPanel(type="tab",
-                    tabPanel("Dataset ",tableOutput("data")),
+                    tabPanel("File property ",tableOutput("data")),
                     tabPanel("Data",tableOutput("onr")),
                     tabPanel("Structure",tableOutput("two")),
-                    tabPanel("Summary",tableOutput("sum")),
+                    tabPanel("File statistics",tableOutput("sum")),
                     tabPanel("Plot",plotOutput("first")))
       
     })
     
     
    
-    output$first<-renderPlot({
+    output$hist<-{(renderPlot(
       
-      bar1<- tapply(file[,input$yaxis], list(file[,input$xaxis]))
-      barplot(bar1)
-      
-      col<-as.numeric()
-      hist(dist [,col],main = "Data visuaization using a histogram")
-    })
-  }
-  
-  
-)
+    hist(mobile$fdd)  
+  ))}
+   
+    
+})

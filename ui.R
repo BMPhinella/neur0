@@ -1,37 +1,71 @@
 library(shiny)
+library(shinydashboard)
 
-shinyUI(fluidPage(
-  
-  titlePanel(title="iOS Mobile Application Analysis System"),
-  
-  sidebarLayout(
-    
-    sidebarPanel(
+ui<-fluidPage(
+  dashboardPage(skin = "purple",
+    dashboardHeader(title="iOS Mobile Application Analysis System"),
+    dashboardSidebar(
       
-      fileInput("file","Upload file"),
-     
-      uiOutput("Select file"),
-      
-      
-    selectInput("xaxis","Select the x axis",colnames(file)),
-                selectInput("yaxis","Select the y axis",colnames(file))
-
-     
-      
-      
+      sidebarMenu(
+        fileInput("file","Upload file"),
+        menuItem("About", tabName = "home"),
+        menuItem("Visualization", tabName = "visual",
+                 menuSubItem("Histogram",tabName = "hist"),
+                 menuSubItem("Barplot",tabName = "bar"),
+                 menuSubItem("Scatter Plot",tabName = "scat")),
+        menuItem("Computation", tabName = "comp",
+                 menuSubItem("Total",tabName = "total"),
+                 menuSubItem("Average",tabName = "average")
+                 ),
+        menuItem("Help", tabName = "help"),
+        
+       
+        
+        uiOutput("Select file")
+      )
     ),
-    
-    mainPanel(
-      uiOutput("table")
+ 
+    dashboardBody(
+      uiOutput("table"),
       
+      tabItems(
+        
+        tabItem(tabName = "hist",fluidRow(
+          box(
+           
+            
+            textOutput("axis"),
+            plotOutput("hist"))
+      )
+      
+          
+         
+        )
+        
+      )
+      
+     
       
       
     )
     
-  )
+     )
+  
+      
+      
+    )
+    
+
+      
+      
+      
+      
+  
+    
   
   
-))
+  
+
  
   
   
