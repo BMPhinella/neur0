@@ -55,18 +55,34 @@ shinyServer(
     ggplot(selected_data,aes(x=user_rating))+geom_bar()
     
   })
-   
- 
   
-  output$scat<-renderPlot({
-    get_genre2=input$genre2
-    selected_data2<-data_set%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,user_rating,
-                                                                      cont_rating,sup_devices.num,lang.num,ipadSc_urls.num,price,size_bytes)
-    ggplot(selected_data2, aes(x=user_rating, y==input$y)) + geom_point()
+  
+  
+  
+  output$hist<-renderPlot({
+    
+    get_genre=input$genre
+    selected_data<-data_set%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+    qplot(selected_data$AGE, geom="histogram")
   
     
   })
+   
+ 
   
+  scatt<-eventReactive(
+    
+  input$button,{
+   scatter<-input$y
+    scatter2<-input$x
+    get_genre2=input$genre2
+    
+  selected_data2<-data_set%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,user_rating,
+                                                                      cont_rating,sup_devices.num,lang.num,ipadSc_urls.num,price,size_bytes)
+  ggplot(selected_data2, aes(x=scatter2, y=scatter)) + geom_point(size=2,shape = 21) 
+    
+  })
+output$scata <- renderPlot({scatt()})
   
     
 })

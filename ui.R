@@ -5,6 +5,7 @@ library(ggplot2)
 #adding data to the app
 data<-read.csv(file.choose(),header = T)
 data_set<-as.data.frame(data)
+data_set2 <- as.factor(data)
 
 ui<-fluidPage(
   dashboardPage(skin = "red",
@@ -68,7 +69,6 @@ ui<-fluidPage(
                                                            "Social Networking","Sports","Business",
                                                             "Health & Fitness","Entertainment","Photo & Video",
                                                            "Lifestyle","Food & Drink")),
-           # textOutput("axis"),
             plotOutput("hist"))
       )),
       
@@ -88,7 +88,7 @@ ui<-fluidPage(
       
       
       tabItem(tabName = "scat",fluidRow(
-        box(title = "Scatter plot", background = "blue", solidHeader = TRUE, height = "70%",
+        box(title = "Scatter plot", background = "maroon", solidHeader = TRUE, height = "70%",
             
             selectInput("genre2","Choose Genre",choices = c("Games","Finance","Productivity",
                                                            "Reference","Music","Utilities","Travel",
@@ -100,9 +100,9 @@ ui<-fluidPage(
             
             selectInput("y","Choose the y axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
             
-          
-            plotOutput("scat"))
-      ))
+            actionButton("button","Plot")
+            ) 
+      ),plotOutput("scata"))
       
       )
       
