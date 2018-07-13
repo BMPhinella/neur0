@@ -3,11 +3,15 @@ library(shinydashboard)
 library(dplyr)
 library(ggplot2)
 #adding data to the app
+
 data<-read.csv(file.choose(),header = T)
-data_set<-as.data.frame(data)
-data_set2 <- as.factor(data)
+#view data as a dataframe
+selected_data<-as.data.frame(data)
+#grouped_data<-selected_data%>%filter(prime_genre=="Games")%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+
 
 ui<-fluidPage(
+  
   dashboardPage(skin = "red",
     dashboardHeader(title="iOS Mobile Application Analysis System",
                     
@@ -64,28 +68,33 @@ ui<-fluidPage(
         tabItem(tabName = "bar",fluidRow(
           box(title = "Representation of the dataset using a bara plot", background = "maroon", solidHeader = TRUE, height = "70%",
            
-            selectInput("genre","Choose Genre",choices = c("Games","Finance","Productivity",
+            selectInput("genreb","Choose Genre",choices = c("Games","Finance","Productivity",
                                                            "Reference","Music","Utilities","Travel",
                                                            "Social Networking","Sports","Business",
                                                             "Health & Fitness","Entertainment","Photo & Video",
                                                            "Lifestyle","Food & Drink")),
-            actionButton("button1","Plot"),
-            plotOutput("bar"))
-      )),
+            selectInput("xb","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
+            
+            selectInput("yb","Choose the y axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
+            
+            actionButton("button1","Plot")
+            )
+      ),plotOutput("bar")),
       
       
       tabItem(tabName = "hist",fluidRow(
-        box(title = "Representation of the data set using a histogram", background = "maroon", solidHeader = TRUE, height = "70%",
+        box(title = "Representation of the data set using a histogram", solidHeader = TRUE, height = "70%",
             
-            selectInput("genre","Choose Genre",choices = c("Games","Finance","Productivity",
+            selectInput("genre1","Choose Genre",choices = c("Games","Finance","Productivity",
                                                            "Reference","Music","Utilities","Travel",
                                                            "Social Networking","Sports","Business",
                                                            "Health & Fitness","Entertainment","Photo & Video",
                                                            "Lifestyle","Food & Drink")),
-            selectInput("histx","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
-            actionButton("button2","Plot"),
-            plotOutput("hist"))
-      )),
+           # selectInput("histx","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
+            actionButton("button2","Plot")
+            )
+      ),
+      plotOutput("hist")),
     
         
         tabItem(tabName = "home",fluidRow(
@@ -101,7 +110,7 @@ ui<-fluidPage(
       
       
       tabItem(tabName = "scat",fluidRow(
-        box(title = "Scatter plot", background = "maroon", solidHeader = TRUE, height = "70%",
+        box(title = "Scatter plot", solidHeader = TRUE, height = "70%",
             
             selectInput("genre2","Choose Genre",choices = c("Games","Finance","Productivity",
                                                            "Reference","Music","Utilities","Travel",

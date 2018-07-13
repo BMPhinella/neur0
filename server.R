@@ -4,69 +4,35 @@ shinyServer(
   
   function(input,output){
     
-    
-    
-    output$data<-renderTable({
-    if(is.null(input$data_set)){return()}
-      input$data #returns dataframe of the dataset
-    })
-    
-    
-    
-    output$sum <- renderPrint({
-      if(is.null(input$data_set)){return()}
-      summary(read.csv(data_set=input$data_set$datapath))
-    })
-    
-    
-  
-    
-    output$two<-renderPrint({
-      if(is.null(input$data_set)){return()}
-         str(input$data_set)
-    })
-    
-    
-    
-    output$onr<-renderPrint({
-      if(is.null(input$data_set)){return()}
-      input$data_set
-    })
-    
-    
-    output$table<-renderUI({
-      if(is.null(input$data_set))
-        h4("good")
-      else
-        tabsetPanel(type="tab",
-                    tabPanel("File property ",tableOutput("data")),
-                    tabPanel("Data",tableOutput("onr")),
-                    tabPanel("Structure",tableOutput("two")),
-                    tabPanel("File statistics",tableOutput("sum")),
-                    tabPanel("Plot",plotOutput("first")))
-      
-    })
-    
+    # histogram visualization
     histo<-eventReactive(
+      
       input$button2,{
+        title<-input$genre1
         histy<-input$y
         histx<-input$histx
-        get_genre=input$genre
-        selected_data<-data_set%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
-        ggplot(selected_data,aes(x=histx))+geom_bar()
+        get_genre1=input$genre1
+        grouped_data<-selected_data%>%filter(prime_genre==get_genre1)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+       
+        ggplot(grouped_data, aes(x=user_rating)) + ggtitle(substitute(atop("A histogram showing the user rating count of the"+ title)))+ geom_histogram()+xlab("User ratings") + ylab("")
+        
+    
       })
     output$hist<-renderPlot({
       histo()
     })
+    
   
   
   barplo<-eventReactive(
     input$button1,{
-      bary<-input$y
-      barx<-input$x
-      get_genre=input$genre
-      selected_data<-data_set%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
-      ggplot(selected_data,aes(x=user_rating))+geom_bar()
+      title2<-input$genreb
+      bary<-input$yb
+      barx<-input$xb
+      get_genre=input$genreb
+      grouped_data<-selected_data%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+      ggplot(data=grouped_data,aes(x=barx,y=bary))+ ggtitle(substitute(atop("Abar plot showing of "+title2+"showing"+bary+"against"+ barx )))+
+        geom_bar(stat="identity",color="blue", fill="white",position=position_dodge())
     })
   output$bar<-renderPlot({
     barplo()
@@ -80,9 +46,9 @@ shinyServer(
     scatter2<-input$x
     get_genre2=input$genre2
     
-  selected_data2<-data_set%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,user_rating,
+    grouped_data<-selected_data%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,user_rating,
                                                                       cont_rating,sup_devices.num,lang.num,ipadSc_urls.num,price,size_bytes)
-  ggplot(selected_data2, aes(x=scatter2, y=scatter)) + geom_point(size=2,shape = 21) 
+  ggplot(grouped_data, aes(x=scatter2, y=scatter)) + geom_point(size=2,shape = 21) 
     
   })
 output$scata <- renderPlot({scatt()})
