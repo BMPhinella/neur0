@@ -22,7 +22,28 @@ shinyServer(
       histo()
     })
     
+  #category output
+    
+    
+    category<-eventReactive(
+      
+      input$catbutton,{
+        title<-input$genre1
   
+        cat11=input$cat1
+        cat2<-as.factor(input$cat2)
+        grouped_data<-selected_data%>%filter(prime_genre==cat11)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+        
+        ggplot(grouped_data, aes(x=cat2))+ geom_bar()
+        
+        
+      })
+    output$catplot<-renderPlot({
+      category()
+    })
+    
+    
+    
   
   barplo<-eventReactive(
     input$button1,{
@@ -32,7 +53,7 @@ shinyServer(
       get_genre=input$genreb
       grouped_data<-selected_data%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
       ggplot(data=grouped_data,aes(x=barx,y=bary))+ ggtitle(substitute(atop("Abar plot showing of "+title2+"showing"+bary+"against"+ barx )))+
-        geom_bar(stat="identity",color="blue", fill="white",position=position_dodge())
+        geom_col(stat="identity",color="blue", fill="white",position=position_dodge())
     })
   output$bar<-renderPlot({
     barplo()

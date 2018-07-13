@@ -2,12 +2,18 @@ library(shiny)
 library(shinydashboard)
 library(dplyr)
 library(ggplot2)
+library(plotly)
 #adding data to the app
 
 data<-read.csv(file.choose(),header = T)
 #view data as a dataframe
 selected_data<-as.data.frame(data)
 #grouped_data<-selected_data%>%filter(prime_genre=="Games")%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+
+data$lang.num<- as.factor(data$lang.num)
+data$price<-as.factor(data$price)
+data$prime_genre<-as.factor(data$prime_genre)
+data$sup_devices.num<-as.factor(data$sup_devices.num)
 
 
 ui<-fluidPage(
@@ -41,7 +47,9 @@ ui<-fluidPage(
    
     br(),
         menuItem("Visualization", tabName = "visual",
-                 
+                 menuSubItem("Category count",tabName = "cat",
+                             menuSubItem("Count Againt user rating",tabName = "countU"),
+                             menuSubItem("Count Against App features",tabName = "CountF")),
                  menuSubItem("Histogram",tabName = "hist"),
                  menuSubItem("Barplot",tabName = "bar"),
                  menuSubItem("Scatter Plot",tabName = "scat")),
@@ -82,7 +90,26 @@ ui<-fluidPage(
       ),plotOutput("bar")),
       
       
-      tabItem(tabName = "hist",fluidRow(
+      
+    
+      
+      
+      tabItem(tabName = "cat",fluidRow(
+        box(title="Category representation count",height="70%",width="40%",
+            selectInput("cat1","Select a category",choices = c("Games","Finance","Productivity",
+                                     "Reference","Music","Utilities","Travel",
+                                     "Social Networking","Sports","Business",
+                                     "Health & Fitness","Entertainment","Photo & Video",
+                                     "Lifestyle","Food & Drink")),
+            selectInput("cat2","Select the Application feature",choices = c("size_bytes","price","rating_count_tot",
+                                                                            "rating_count_ver","user_rating","user_rating_ver",
+                                                                            "Primary Genre ","sup_devices.num","ipadSc_urls.num"))
+            
+            ),
+        actionButton("catbutton","select")
+      ), plotOutput("catplot")),
+      
+      tabItem(tabName = "cat",fluidRow(
         box(title = "Representation of the data set using a histogram", solidHeader = TRUE, height = "70%",
             
             selectInput("genre1","Choose Genre",choices = c("Games","Finance","Productivity",
