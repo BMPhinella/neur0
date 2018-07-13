@@ -47,7 +47,7 @@ ui<-fluidPage(
    
     br(),
         menuItem("Visualization", tabName = "visual",
-                 menuSubItem("Category count",tabName = "cat"),
+                 
                  menuSubItem("Histogram",tabName = "hist"),
                  menuSubItem("Barplot",tabName = "bar"),
                  menuSubItem("Scatter Plot",tabName = "scat")),
@@ -89,20 +89,6 @@ ui<-fluidPage(
       
       
       
-      tabItem(tabName = "cat",fluidRow(
-        box(title="Category representation count",height="70%",width="40%",
-            selectInput("cat1","Select a category",choices = c("Games","Finance","Productivity",
-                                     "Reference","Music","Utilities","Travel",
-                                     "Social Networking","Sports","Business",
-                                     "Health & Fitness","Entertainment","Photo & Video",
-                                     "Lifestyle","Food & Drink")),
-            selectInput("cat2","Select the Application feature",choices = c("size_bytes","price","rating_count_tot",
-                                                                            "rating_count_ver","user_rating","user_rating_ver",
-                                                                            "Primary Genre ","sup_devices.num"))
-            
-            ),
-        actionButton("catbutton","select")
-      ), plotOutput("catplot")),
       
       tabItem(tabName = "hist",fluidRow(
         box(title = "Representation of the data set using a histogram", solidHeader = TRUE, height = "70%",

@@ -34,7 +34,7 @@ shinyServer(
         cat2<-as.factor(input$cat2)
         grouped_data<-selected_data%>%filter(prime_genre==cat11)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
         
-        ggplot(grouped_data, aes(x=cat2))+ geom_bar()
+        ggplot(grouped_data, aes(x=user_rating))+ geom_bar()
         
         
       })
