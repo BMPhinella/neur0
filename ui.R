@@ -61,18 +61,31 @@ ui<-fluidPage(
       
       tabItems(
         
-        tabItem(tabName = "hist",fluidRow(
-          box(title = "Barplot", background = "maroon", solidHeader = TRUE, height = "70%",
+        tabItem(tabName = "bar",fluidRow(
+          box(title = "Representation of the dataset using a bara plot", background = "maroon", solidHeader = TRUE, height = "70%",
            
             selectInput("genre","Choose Genre",choices = c("Games","Finance","Productivity",
                                                            "Reference","Music","Utilities","Travel",
                                                            "Social Networking","Sports","Business",
                                                             "Health & Fitness","Entertainment","Photo & Video",
                                                            "Lifestyle","Food & Drink")),
-            plotOutput("hist"))
+            actionButton("button1","Plot"),
+            plotOutput("bar"))
       )),
       
       
+      tabItem(tabName = "hist",fluidRow(
+        box(title = "Representation of the data set using a histogram", background = "maroon", solidHeader = TRUE, height = "70%",
+            
+            selectInput("genre","Choose Genre",choices = c("Games","Finance","Productivity",
+                                                           "Reference","Music","Utilities","Travel",
+                                                           "Social Networking","Sports","Business",
+                                                           "Health & Fitness","Entertainment","Photo & Video",
+                                                           "Lifestyle","Food & Drink")),
+            selectInput("histx","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
+            actionButton("button2","Plot"),
+            plotOutput("hist"))
+      )),
     
         
         tabItem(tabName = "home",fluidRow(

@@ -47,28 +47,31 @@ shinyServer(
       
     })
     
-    
-   
-  output$hist<-renderPlot({
-    get_genre=input$genre
-    selected_data<-data_set%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
-    ggplot(selected_data,aes(x=user_rating))+geom_bar()
-    
+    histo<-eventReactive(
+      input$button2,{
+        histy<-input$y
+        histx<-input$histx
+        get_genre=input$genre
+        selected_data<-data_set%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+        ggplot(selected_data,aes(x=histx))+geom_bar()
+      })
+    output$hist<-renderPlot({
+      histo()
+    })
+  
+  
+  barplo<-eventReactive(
+    input$button1,{
+      bary<-input$y
+      barx<-input$x
+      get_genre=input$genre
+      selected_data<-data_set%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+      ggplot(selected_data,aes(x=user_rating))+geom_bar()
+    })
+  output$bar<-renderPlot({
+    barplo()
   })
   
-  
-  
-  
-  output$hist<-renderPlot({
-    
-    get_genre=input$genre
-    selected_data<-data_set%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
-    qplot(selected_data$AGE, geom="histogram")
-  
-    
-  })
-   
- 
   
   scatt<-eventReactive(
     
