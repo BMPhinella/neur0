@@ -2,19 +2,10 @@ library(shiny)
 library(shinydashboard)
 library(dplyr)
 library(ggplot2)
-library(plotly)
-#adding data to the app
 
 data<-read.csv(file.choose(),header = T)
-#view data as a dataframe
+
 selected_data<-as.data.frame(data)
-#grouped_data<-selected_data%>%filter(prime_genre=="Games")%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
-
-data$lang.num<- as.factor(data$lang.num)
-data$price<-as.factor(data$price)
-data$prime_genre<-as.factor(data$prime_genre)
-data$sup_devices.num<-as.factor(data$sup_devices.num)
-
 
 ui<-fluidPage(
   
@@ -44,7 +35,12 @@ ui<-fluidPage(
     dashboardSidebar(
       
       sidebarMenu(
+    br(),
    
+    
+        br(),
+        menuItem("About", tabName = "home"),
+        
     br(),
         menuItem("Visualization", tabName = "visual",
                  
@@ -59,8 +55,7 @@ ui<-fluidPage(
     br(),
         menuItem("Help", tabName = "help"),
         
-    br(),
-    menuItem("About", tabName = "home"),
+   
         
         uiOutput("Select file")
       )
@@ -72,7 +67,7 @@ ui<-fluidPage(
       tabItems(
         
         tabItem(tabName = "bar",fluidRow(
-          box(title = "Representation of the dataset using a bara plot", background = "maroon", solidHeader = TRUE, height = "70%",
+          box(title = "Representation of the dataset using a bar plot", background = "maroon", solidHeader = TRUE, height = "70%",
            
             selectInput("genreb","Choose Genre",choices = c("Games","Finance","Productivity",
                                                            "Reference","Music","Utilities","Travel",
@@ -93,7 +88,7 @@ ui<-fluidPage(
       tabItem(tabName = "hist",fluidRow(
         box(title = "Representation of the data set using a histogram", solidHeader = TRUE, height = "70%",
             
-            selectInput("genre1","Choose Genre",choices = c("Games","Finance","Productivity",
+          selectInput("genre1","Choose Genre",choices = c("Games","Finance","Productivity",
                                                            "Reference","Music","Utilities","Travel",
                                                            "Social Networking","Sports","Business",
                                                            "Health & Fitness","Entertainment","Photo & Video",
@@ -106,15 +101,34 @@ ui<-fluidPage(
     
         
         tabItem(tabName = "home",fluidRow(
-          box(width = "30%" , height = "70%",
-            h4("This system is an iOS mobile application analysis system.
-               It analyses the IOS mobile application from apple store to have an insight
-               and determine the patterns from the Apple app store.
-               The insights enable in determinig :
-                 which apps are trending according to user rating.")
-            )
+          
+              h2(" iOS Mobile Application Analysis System"),
+            p("This is an iOS mobile application analysis system.
+               It analyses the IOS mobile applications from apple store to have an insight
+               and determine the patterns from the Apple store."),
+            
+            h2("Objectives"),
+            p("To help app developers study the relationship between app details 
+              and user ratings to help them increase the user ratings for their 
+              own apps by developing apps with relavant features"),
+            
+            h2("Goals"),
+            p("To increase the user ratings for new applications"),
+            p("To compare the app statistics for different groups"),
+            p("To study how app features contribute to user ratings")
+            
+            
         )),
       
+      
+      
+      
+      tabItem(tabName = "help",fluidRow(
+        
+        h2("Are you stuck? Need help?")
+        
+        
+      )),
       
       
       tabItem(tabName = "scat",fluidRow(
