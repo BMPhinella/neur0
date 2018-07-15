@@ -117,7 +117,13 @@ ui<-fluidPage(
         
             p("To help app developers study the relationship between app details 
               and user ratings to help them increase the user ratings for their 
-              own apps by developing apps with relavant features")
+              own apps by developing apps with relavant features"),
+            br(),
+            h4("System developers"),
+            h5("Best Mugisa"),
+            p("Kekirunga Jean"),
+            p("Kisiga Timothy")
+               
             
         ),
       
@@ -126,7 +132,7 @@ ui<-fluidPage(
       
       tabItem(tabName = "help",
         
-        h2("GUIDLINES ON HOW TO USE THE SYSTEM"),
+        h2("GUIDELINES ON HOW TO USE THE SYSTEM"),
         p("For the system to be able to perform all the different functionalities,
           the columns within the uploaded data set should correspond to those in the APPLE STORE and APPLE STORE DESCRIPTION datasets"),
         br(),
@@ -134,8 +140,18 @@ ui<-fluidPage(
         p("The upload button enables one to upload a dataset that contains
           the data which the system would analyse and find different statistics "),
         br(),
-        h4("About"),
-        p("")
+        h4("* About"),
+        p("The about menu item contains a brief description about the system, the objectives and  the goals.            
+          It also contains a brief information about the project team that developed the system"),
+        br(),
+        h4("* Visualization"),
+        p("The visualization menu item enables the user to have an insight on the dataset using graphs ie histogram,barplot,line graph and scatter plot.                                                                                                                           
+          Under visualization, this is where most if notall of the objectives of the systemare implemented from."),
+        br(),
+        h4("* Sentimental Analysis"),
+        p("In this menu item, the apple store description dataset is used and the system is able to determine 
+          how the application description affects the user rating")
+        
         
         
       ),
