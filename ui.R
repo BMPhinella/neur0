@@ -100,7 +100,7 @@ ui<-fluidPage(
       plotOutput("hist")),
     
         
-        tabItem(tabName = "home",fluidRow(
+        tabItem(tabName = "home",
           
               h2(" iOS Mobile Application Analysis System"),
             p("This is an iOS mobile application analysis system.
@@ -108,27 +108,37 @@ ui<-fluidPage(
                and determine the patterns from the Apple store."),
             
             h2("Objectives"),
-            p("To help app developers study the relationship between app details 
-              and user ratings to help them increase the user ratings for their 
-              own apps by developing apps with relavant features"),
+            p("To have an insight on the relationships between the different application features"),
+            p("To have an insight on which category has the highest number  of applications"),
+            p("To show the application statistics of the different categories"),
+            p("To show how the different application features affect the user ratings"),
             
             h2("Goals"),
-            p("To increase the user ratings for new applications"),
-            p("To compare the app statistics for different groups"),
-            p("To study how app features contribute to user ratings")
+        
+            p("To help app developers study the relationship between app details 
+              and user ratings to help them increase the user ratings for their 
+              own apps by developing apps with relavant features")
             
-            
-        )),
+        ),
       
       
       
       
-      tabItem(tabName = "help",fluidRow(
+      tabItem(tabName = "help",
         
-        h2("Are you stuck? Need help?")
+        h2("GUIDLINES ON HOW TO USE THE SYSTEM"),
+        p("For the system to be able to perform all the different functionalities,
+          the columns within the uploaded data set should correspond to those in the APPLE STORE and APPLE STORE DESCRIPTION datasets"),
+        br(),
+        h4("* Upload button"),
+        p("The upload button enables one to upload a dataset that contains
+          the data which the system would analyse and find different statistics "),
+        br(),
+        h4("About"),
+        p("")
         
         
-      )),
+      ),
       
       
       tabItem(tabName = "scat",fluidRow(
