@@ -48,7 +48,7 @@ shinyServer(
     
     output$table<-renderUI({
       if(is.null(input$file)){return(
-        h4("good")
+        h4("Created by ", tags$img(src='licious.jpg',height= 50, width=50))
       )}
       else{
         tabsetPanel(type="tab",
@@ -68,13 +68,14 @@ shinyServer(
       
       input$button2,{
         selected_file<-input$sel
-        if(input$file$name==selected_file){return(
+        file<-input$file$name
+        if(file==selected_file){return(
         title<-input$genre1,
         histy<-input$y,
         histx<-input$histx,
         get_genre1=input$genre1,
           
-          grouped_data<-selected_data%>%filter(prime_genre==get_genre1)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num),
+          grouped_data<-selected_file%>%filter(prime_genre==get_genre1)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num),
           
           ggplot(grouped_data, aes(x=user_rating)) + ggtitle(substitute(atop("A histogram showing the user rating count of the"+ title)))+ geom_histogram()+xlab("User ratings") + ylab("")
           
