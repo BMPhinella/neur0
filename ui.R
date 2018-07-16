@@ -44,7 +44,7 @@ ui<-fluidPage(
                     
                     br(),
                     uiOutput("selectfile"),
-                    
+                    menuItem("",tabName = ""),
                     menuItem("About", tabName = "home"),
                     
                     br(),
