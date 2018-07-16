@@ -36,14 +36,10 @@ ui<-fluidPage(
                 dashboardSidebar(
                   
                   sidebarMenu(
-                    br(),
+                  
                     
-                    
-                    fileInput("file","Upload a file", multiple = TRUE),
-                    #selectInput("select","Select the file to be used", choices = c("AppleStore","appleStore_description")),
-                    
-                    br(),
                     uiOutput("selectfile"),
+                   
                     menuItem("",tabName = ""),
                     menuItem("About", tabName = "home"),
                     
@@ -54,13 +50,17 @@ ui<-fluidPage(
                              menuSubItem("Barplot",tabName = "bar"),
                              menuSubItem("Scatter Plot",tabName = "scat")),
                     br(),
-                    menuItem("Computation", tabName = "comp",
-                             menuSubItem("Total",tabName = "total"),
-                             menuSubItem("Average",tabName = "average")
+                    menuItem("Summary", tabName = "comp",
+                             menuSubItem("File Property",tabName = "data"),
+                             menuSubItem("File Path",tabName = "path"),
+                             menuSubItem("Structure",tabName = "struc"),
+                             menuSubItem("Summary",tabName = "summ")
                     ),
                     br(),
-                    menuItem("Help", tabName = "help")
-                  
+                    menuItem("Help", tabName = "help"),
+                    br(),
+                    fileInput("file","Upload a file"),
+                    fileInput("file1","File for Sentiment Analysis")
                     
                   )
                 ),
@@ -78,16 +78,19 @@ ui<-fluidPage(
                                                                           "Social Networking","Sports","Business",
                                                                           "Health & Fitness","Entertainment","Photo & Video",
                                                                           "Lifestyle","Food & Drink")),
-                          selectInput("xb","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
+                          selectInput("xb","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes"), selected = ""),
                           
-                          selectInput("yb","Choose the y axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
+                          selectInput("yb","Choose the y axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes"), selected = ""),
                           
                           actionButton("button1","Plot")
                       )
                     ),plotOutput("bar")),
                     
                     
-                    
+                    tabItem(tabName = "data", verbatimTextOutput("data")),
+                    tabItem(tabName = "path", verbatimTextOutput("path")),
+                    tabItem(tabName = "struc", verbatimTextOutput("struc")),
+                    tabItem(tabName = "summ", verbatimTextOutput("summ")),
                     
                     tabItem(tabName = "hist",fluidRow(
                       box(title = "Representation of the data set using a histogram", solidHeader = TRUE, height = "70%",
@@ -96,7 +99,7 @@ ui<-fluidPage(
                                                                           "Reference","Music","Utilities","Travel",
                                                                           "Social Networking","Sports","Business",
                                                                           "Health & Fitness","Entertainment","Photo & Video",
-                                                                          "Lifestyle","Food & Drink")),
+                                                                          "Lifestyle","Food & Drink"), selectize = FALSE),
                           # selectInput("histx","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
                           actionButton("button2","Plot")
                       )
@@ -168,7 +171,7 @@ ui<-fluidPage(
                                                                           "Reference","Music","Utilities","Travel",
                                                                           "Social Networking","Sports","Business",
                                                                           "Health & Fitness","Entertainment","Photo & Video",
-                                                                          "Lifestyle","Food & Drink")),
+                                                                          "Lifestyle","Food & Drink"), selectize = FALSE),
                           
                           selectInput("x","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
                           
