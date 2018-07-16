@@ -5,7 +5,7 @@ library(ggplot2)
 
 #data<-read.csv(file.choose(),header = T)
 
-selected_data<-as.data.frame(file)
+#selected_data<-as.data.frame(file)
 
 
 ui<-fluidPage(
@@ -37,8 +37,14 @@ ui<-fluidPage(
                   
                   sidebarMenu(
                     br(),
+                    
+                    
                     fileInput("file","Upload a file", multiple = TRUE),
-                    selectInput("sel","Select the file to be used", choices = c("AppleStore","appleStore_description")),
+                    #selectInput("select","Select the file to be used", choices = c("AppleStore","appleStore_description")),
+                    
+                    br(),
+                    uiOutput("selectfile"),
+                    
                     menuItem("About", tabName = "home"),
                     
                     br(),
@@ -53,11 +59,9 @@ ui<-fluidPage(
                              menuSubItem("Average",tabName = "average")
                     ),
                     br(),
-                    menuItem("Help", tabName = "help"),
+                    menuItem("Help", tabName = "help")
+                  
                     
-                    
-                    
-                    uiOutput("Select file")
                   )
                 ),
                 
