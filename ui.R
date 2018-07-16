@@ -3,9 +3,8 @@ library(shinydashboard)
 library(dplyr)
 library(ggplot2)
 
-data<-read.csv(file.choose(),header = T)
 
-selected_data<-as.data.frame(data)
+
 
 ui<-fluidPage(
   
@@ -35,9 +34,11 @@ ui<-fluidPage(
     dashboardSidebar(
       
       sidebarMenu(
-    br(),
-   
-    
+        fileInput("data","Upload the file", multiple=T),
+     
+        selectInput("select","Select the file to be used",choices = c("AppleStore","appleStore_description")),
+          # selected_data<-as.data.frame(data),
+  
         br(),
         menuItem("About", tabName = "home"),
         

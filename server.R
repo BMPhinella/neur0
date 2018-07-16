@@ -1,8 +1,15 @@
 library(shiny)
-
+selected_data<-as.data.frame(data)
 shinyServer(
   
   function(input,output){
+    output$table<-renderTable({
+      data_read= input$selected_data
+      if(is.null(data_read)){return()}
+      
+      read.table(data_read)
+    })
+ 
     
     # histogram visualization
     histo<-eventReactive(
