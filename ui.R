@@ -34,9 +34,9 @@ ui<-fluidPage(
     dashboardSidebar(
       
       sidebarMenu(
-        fileInput("data","Upload the file", multiple=T),
-     
-        selectInput("select","Select the file to be used",choices = c("AppleStore","appleStore_description")),
+        fileInput("data","Upload the file", multiple=T,accept=c('text/csv','text/comma-separated-values,text/plain','.csv')),
+      
+        selectInput("sel","Select the file to be used",choices = c("AppleStore","appleStore_description")),
           # selected_data<-as.data.frame(data),
   
         br(),
@@ -77,9 +77,8 @@ ui<-fluidPage(
                                                            "Lifestyle","Food & Drink")),
             selectInput("xb","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
             
-            selectInput("yb","Choose the y axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
+            selectInput("yb","Choose the y axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes"))
             
-            actionButton("button1","Plot")
             )
       ),plotOutput("bar")),
       
@@ -93,9 +92,9 @@ ui<-fluidPage(
                                                            "Reference","Music","Utilities","Travel",
                                                            "Social Networking","Sports","Business",
                                                            "Health & Fitness","Entertainment","Photo & Video",
-                                                           "Lifestyle","Food & Drink")),
+                                                           "Lifestyle","Food & Drink"))
            # selectInput("histx","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
-            actionButton("button2","Plot")
+        
             )
       ),
       plotOutput("hist")),
@@ -169,9 +168,9 @@ ui<-fluidPage(
             
             selectInput("x","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
             
-            selectInput("y","Choose the y axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
+            selectInput("y","Choose the y axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes"))
             
-            actionButton("button","Plot")
+
             ) 
       ),plotOutput("scata"))
       

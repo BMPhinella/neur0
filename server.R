@@ -11,24 +11,28 @@ shinyServer(
     })
  
     
+    
+    
+    
     # histogram visualization
-    histo<-eventReactive(
-      
-      input$button2,{
-        title<-input$genre1
-        histy<-input$y
-        histx<-input$histx
-        get_genre1=input$genre1
-        grouped_data<-selected_data%>%filter(prime_genre==get_genre1)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+
+      output$hist<-renderPlot({
+        select1<-input$sel
+      if(select1==AppleStore){return(
+    
+        title<-input$genre1,
+        histy<-input$y,
+        histx<-input$histx,
+        get_genre1=input$genre1,
+        grouped_data<-selected_data%>%filter(prime_genre==get_genre1)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num),
        
         ggplot(grouped_data, aes(x=user_rating)) + ggtitle(substitute(atop("A histogram showing the user rating count of the"+ title)))+ geom_histogram()+xlab("User ratings") + ylab("")
         
-    
+      )}
       })
-    output$hist<-renderPlot({
-      histo()
-    })
+      
     
+  
   #category output
     
     
