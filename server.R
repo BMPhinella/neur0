@@ -1,4 +1,5 @@
 library(shiny)
+library()
 options(shiny.maxRequestSize=30*1024^2)
 shinyServer(
   
@@ -24,24 +25,22 @@ shinyServer(
     
     #returns the file path
     output$path<-renderTable({
-      if(is.null(input$data)){
-        return()
-        }
-    input$file$datapath 
+      input$file$datapath
+
     })
     
     # returns the file structure
     
     output$struc<-renderPrint({
-      if(is.null(input$file)){return()}
-      str(input$file) 
+    
+      str(data()) 
     })
     
     
     output$summ <- renderTable({
-      if(is.null(input$file)){return()}
-      summary(read.table(file=input$file$datapath, sep = "", header = TRUE)
-    )})
+      
+      summary(data())
+    })
     
     
     output$selectfile<-renderUI({

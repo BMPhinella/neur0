@@ -1,6 +1,7 @@
 library(shiny)
 library(shinydashboard)
 library(dplyr)
+library(DT)
 library(ggplot2)
 
 #data<-read.csv(file.choose(),header = T)
@@ -89,7 +90,7 @@ ui<-fluidPage(
                     
                     
                     tabItem(tabName = "data", verbatimTextOutput("data")),
-                    tabItem(tabName = "path", verbatimTextOutput("path")),
+                    tabItem(tabName = "path", dataTableOutput("path")),
                     tabItem(tabName = "struc", verbatimTextOutput("struc")),
                     tabItem(tabName = "summ", verbatimTextOutput("summ")),
                     
