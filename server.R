@@ -4,7 +4,7 @@ options(shiny.maxRequestSize=30*1024^2)
 shinyServer(
   
   function(input,output){
-    
+    selected_data<-as.data.frame(file)
     #accessing the data in the file
     
     data<- reactive({
