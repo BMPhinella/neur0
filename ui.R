@@ -45,11 +45,11 @@ ui<-fluidPage(
                     
                     br(),
                     menuItem("Visualization", tabName = "visual",
-                             
+                             menuSubItem("Barplot all categories",tabName = "box"),
                              menuSubItem("Histogram",tabName = "hist"),
                              menuSubItem("Barplot",tabName = "bar"),
-                             menuSubItem("Scatter Plot",tabName = "scat"),
-                             menuSubItem("Boxplot",tabName = "box")),
+                             menuSubItem("Scatter Plot",tabName = "scat")),
+                             
                     br(),
                     menuItem("Summary", tabName = "comp",
                              menuSubItem("File Property",tabName = "data"),
@@ -72,16 +72,16 @@ ui<-fluidPage(
                   tabItems(
                     
                     tabItem(tabName = "bar",fluidRow(
-                      box(title = "Representation of the dataset using a bar plot", background = "maroon", solidHeader = TRUE, height = "70%",
+                      box(title = "Representation of the dataset using a bar plot", solidHeader = TRUE, height = "70%",
                           
                           selectInput("genreb","Choose Genre",choices = c("Games","Finance","Productivity",
                                                                           "Reference","Music","Utilities","Travel",
                                                                           "Social Networking","Sports","Business",
                                                                           "Health & Fitness","Entertainment","Photo & Video",
                                                                           "Lifestyle","Food & Drink")),
-                          selectInput("xb","Choose the x axis",choices = c("rating_count_tot","rating_count_ver","price","sup_devices.num","lang.num","ipadSc_urls.num"), selected = ""),
+                          selectInput("xb","Choose the x axis",choices = c("user_rating","user_rating_ver","price","sup_devices.num","lang.num","ipadSc_urls.num"), selected = ""),
                           
-                          selectInput("yb","Choose the y axis",choices = c("rating_count_tot","rating_count_ver","price","sup_devices.num","lang.num","ipadSc_urls.num"), selected = ""),
+                          selectInput("yb","Choose the y axis",choices = c("user_rating","user_rating_ver","price","sup_devices.num","lang.num","ipadSc_urls.num"), selected = ""),
                           
                           actionButton("button1","Plot")
                       )
@@ -94,16 +94,17 @@ ui<-fluidPage(
                     tabItem(tabName = "summ", verbatimTextOutput("summ")),
                     
                     tabItem(tabName = "hist",fluidRow(
-                      box(title = "Representation of the data set using a histogram", solidHeader = TRUE, height = "70%",
-                          
-                          selectInput("genre1","Choose Genre",choices = c("Games","Finance","Productivity",
+                      
+                      box(title = "Reperesentation of the data using a histogram",
+                        selectInput("genre1","Choose Genre",choices = c("Games","Finance","Productivity",
                                                                           "Reference","Music","Utilities","Travel",
                                                                           "Social Networking","Sports","Business",
                                                                           "Health & Fitness","Entertainment","Photo & Video",
-                                                                          "Lifestyle","Food & Drink"), selectize = FALSE),
-                          actionButton("button2","Plot")
-                      )
+                                                                          "Lifestyle","Food & Drink")),
+                          actionButton("button2","Plot"))
                     ),
+                      
+                    
                     plotOutput("hist")),
                     
                     
@@ -165,13 +166,13 @@ ui<-fluidPage(
                     
                     
                     tabItem(tabName = "scat",fluidRow(
-                      box(title = "Scatter plot", solidHeader = TRUE, height = "70%",
+                      box(title = "Representation of the data set using a scatter plot", solidHeader = TRUE, height = "70%",
                           
                           selectInput("genre2","Choose Genre",choices = c("Games","Finance","Productivity",
                                                                           "Reference","Music","Utilities","Travel",
                                                                           "Social Networking","Sports","Business",
                                                                           "Health & Fitness","Entertainment","Photo & Video",
-                                                                          "Lifestyle","Food & Drink"), selectize = FALSE),
+                                                                          "Lifestyle","Food & Drink")),
                           
                           selectInput("x","Choose the x axis",choices = c("rating_count_tot","rating_count_ver","price","sup_devices.num","lang.num","ipadSc_urls.num")),
                           
@@ -182,33 +183,16 @@ ui<-fluidPage(
                     ),plotOutput("scata")),
                     
                     
-                    
+                    #barplot all categories
                     tabItem(tabName = "box",fluidRow(
-                      box(title = "Bar plot for all the categories", solidHeader = TRUE, height = "70%",
-                          
-                          selectInput("rang","Select range",choices = c("1:23","1:11","11:23")),
-                          actionButton("buttonb","Plot")
-                      ) 
-                    ),plotOutput("boxp")),
-                    
-                    
-                    tabItem(tabName = "box",fluidRow(
-                      box(title = "Bar plot for all the categories", solidHeader = TRUE, height = "70%",
-                          
-                          selectInput("rang","Select range",choices = c("1:23","1:11","11:23")),
-                          actionButton("buttonb","Plot")
-                      ) 
-                    ),plotOutput("boxp")),
-                    
-                    
-                    tabItem(tabName = "box",fluidRow(
-                      box(title = "Bar plot for all the categories", solidHeader = TRUE, height = "70%",
-                          
-                          selectInput("rang","Select range",choices = c("1:23","1:11","11:23")),
-                          actionButton("buttonb","Plot")
-                      ) 
+                      tabsetPanel(type="tab",
+                                                   tabPanel("Full Range ",plotOutput("f")),
+                                                  tabPanel("Upper Range",plotOutput("u")),
+                                                   tabPanel("Lower Range",plotOutput("l"))
+                                                   
+                                           
+                                      )
                     ),plotOutput("boxp"))
-                    
                     
                     
                             )

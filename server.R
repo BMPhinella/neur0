@@ -78,7 +78,7 @@ shinyServer(
         histx<-input$histx
         get_genre1=input$genre1
           
-          grouped_data<-data()%>%filter(prime_genre==get_genre1)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+          grouped_data<-data()%>%filter(prime_genre==get_genre1)%>%select(rating_count_tot,user_rating,user_rating_ver,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
           
           ggplot(grouped_data, aes(x=user_rating)) + ggtitle(substitute(atop("A histogram showing the user rating count of the"+ title)))+ geom_histogram()+xlab("User ratings") + ylab("")
           
@@ -101,7 +101,7 @@ shinyServer(
         
         cat11=input$cat1
         cat2<-as.factor(input$cat2)
-        grouped_data<-selected_data%>%filter(prime_genre==cat11)%>%select(rating_count_tot,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
+        grouped_data<-selected_data%>%filter(prime_genre==cat11)%>%select(rating_count_tot,user_rating,user_rating_ver,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
         
         ggplot(grouped_data, aes(x=user_rating))+ geom_bar()
         
@@ -118,7 +118,7 @@ shinyServer(
       input$button1,{
       
          get_genre=input$genreb
-         grouped_data<-data()%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)%>%slice(1:10)
+         grouped_data<-data()%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,user_rating_ver,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)%>%slice(1:10)
     
         xb<-reactive({
           grouped_data[,input$xb]
@@ -140,7 +140,7 @@ shinyServer(
       
         get_genre2=input$genre2
         
-       grouped_data<-data()%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)%>%slice(1:10)
+       grouped_data<-data()%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,user_rating,user_rating_ver,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)%>%slice(1:10)
       
         x<-reactive({
           grouped_data[,input$x]
@@ -155,22 +155,23 @@ shinyServer(
     output$scata <- renderPlot({scatt()})
     
   
-    #box plot 
-    
-    
-    box1<-eventReactive(
+    #bar pplot table panel
+    output$f<- renderPlot({
+      data3<-count(data(),"prime_genre")
       
-      input$buttonb,{
-        
-        get_genre2=input$genre2
-        rang<-input$rang
-        data3<-count(data(),"prime_genre")%>%slice(rang)
-
-        ggplot(data3, aes(x = prime_genre, y = freq)) + geom_bar(stat = "identity")
-        
-        
-      })
-    output$boxp <- renderPlot({box1()})
+      ggplot(data3, aes(x = prime_genre, y = freq)) + geom_bar(stat = "identity")
+    })
     
+     output$u<-renderPlot({
+       data3<-count(data(),"prime_genre")%>%slice(1:11)
+       
+       ggplot(data3, aes(x = prime_genre, y = freq)) + geom_bar(stat = "identity")
+     })
+    
+     output$l<-renderPlot({
+       data3<-count(data(),"prime_genre")%>%slice(11:23)
+       
+       ggplot(data3, aes(x = prime_genre, y = freq)) + geom_bar(stat = "identity")
+     })
     
   })
