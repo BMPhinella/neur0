@@ -118,7 +118,7 @@ shinyServer(
       input$button1,{
       
          get_genre=input$genreb
-         grouped_data<-data()%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
+         grouped_data<-data()%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)%>%slice(1:10)
     
         xb<-reactive({
           grouped_data[,input$xb]
@@ -140,7 +140,7 @@ shinyServer(
       
         get_genre2=input$genre2
         
-       grouped_data<-data()%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
+       grouped_data<-data()%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)%>%slice(1:10)
       
         x<-reactive({
           grouped_data[,input$x]
@@ -155,6 +155,22 @@ shinyServer(
     output$scata <- renderPlot({scatt()})
     
   
+    #box plot 
+    
+    
+    box1<-eventReactive(
+      
+      input$buttonb,{
+        
+        get_genre2=input$genre2
+        rang<-input$rang
+        data3<-count(data(),"prime_genre")%>%slice(rang)
+
+        ggplot(data3, aes(x = prime_genre, y = freq)) + geom_bar(stat = "identity")
+        
+        
+      })
+    output$boxp <- renderPlot({box1()})
     
     
   })

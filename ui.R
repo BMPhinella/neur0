@@ -36,10 +36,10 @@ ui<-fluidPage(
                 dashboardSidebar(
                   
                   sidebarMenu(
-                  
+                    
                     
                     uiOutput("selectfile"),
-                   
+                    
                     menuItem("",tabName = ""),
                     menuItem("About", tabName = "home"),
                     
@@ -48,7 +48,8 @@ ui<-fluidPage(
                              
                              menuSubItem("Histogram",tabName = "hist"),
                              menuSubItem("Barplot",tabName = "bar"),
-                             menuSubItem("Scatter Plot",tabName = "scat")),
+                             menuSubItem("Scatter Plot",tabName = "scat"),
+                             menuSubItem("Boxplot",tabName = "box")),
                     br(),
                     menuItem("Summary", tabName = "comp",
                              menuSubItem("File Property",tabName = "data"),
@@ -100,7 +101,7 @@ ui<-fluidPage(
                                                                           "Social Networking","Sports","Business",
                                                                           "Health & Fitness","Entertainment","Photo & Video",
                                                                           "Lifestyle","Food & Drink"), selectize = FALSE),
-                                                   actionButton("button2","Plot")
+                          actionButton("button2","Plot")
                       )
                     ),
                     plotOutput("hist")),
@@ -178,7 +179,37 @@ ui<-fluidPage(
                           
                           actionButton("button","Plot")
                       ) 
-                    ),plotOutput("scata"))
+                    ),plotOutput("scata")),
+                    
+                    
+                    
+                    tabItem(tabName = "box",fluidRow(
+                      box(title = "Bar plot for all the categories", solidHeader = TRUE, height = "70%",
+                          
+                          selectInput("rang","Select range",choices = c("1:23","1:11","11:23")),
+                          actionButton("buttonb","Plot")
+                      ) 
+                    ),plotOutput("boxp")),
+                    
+                    
+                    tabItem(tabName = "box",fluidRow(
+                      box(title = "Bar plot for all the categories", solidHeader = TRUE, height = "70%",
+                          
+                          selectInput("rang","Select range",choices = c("1:23","1:11","11:23")),
+                          actionButton("buttonb","Plot")
+                      ) 
+                    ),plotOutput("boxp")),
+                    
+                    
+                    tabItem(tabName = "box",fluidRow(
+                      box(title = "Bar plot for all the categories", solidHeader = TRUE, height = "70%",
+                          
+                          selectInput("rang","Select range",choices = c("1:23","1:11","11:23")),
+                          actionButton("buttonb","Plot")
+                      ) 
+                    ),plotOutput("boxp"))
+                    
+                    
                     
                             )
                   
