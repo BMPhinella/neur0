@@ -78,9 +78,9 @@ ui<-fluidPage(
                                                                           "Social Networking","Sports","Business",
                                                                           "Health & Fitness","Entertainment","Photo & Video",
                                                                           "Lifestyle","Food & Drink")),
-                          selectInput("xb","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes"), selected = ""),
+                          selectInput("xb","Choose the x axis",choices = c("rating_count_tot","rating_count_ver","price","sup_devices.num","lang.num","ipadSc_urls.num"), selected = ""),
                           
-                          selectInput("yb","Choose the y axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes"), selected = ""),
+                          selectInput("yb","Choose the y axis",choices = c("rating_count_tot","rating_count_ver","price","sup_devices.num","lang.num","ipadSc_urls.num"), selected = ""),
                           
                           actionButton("button1","Plot")
                       )
@@ -100,8 +100,7 @@ ui<-fluidPage(
                                                                           "Social Networking","Sports","Business",
                                                                           "Health & Fitness","Entertainment","Photo & Video",
                                                                           "Lifestyle","Food & Drink"), selectize = FALSE),
-                          # selectInput("histx","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
-                          actionButton("button2","Plot")
+                                                   actionButton("button2","Plot")
                       )
                     ),
                     plotOutput("hist")),
@@ -173,9 +172,9 @@ ui<-fluidPage(
                                                                           "Health & Fitness","Entertainment","Photo & Video",
                                                                           "Lifestyle","Food & Drink"), selectize = FALSE),
                           
-                          selectInput("x","Choose the x axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
+                          selectInput("x","Choose the x axis",choices = c("rating_count_tot","rating_count_ver","price","sup_devices.num","lang.num","ipadSc_urls.num")),
                           
-                          selectInput("y","Choose the y axis",choices = c("rating_count_tot","user_rating","cont_rating","sup_devices.num","lang.num","ipadSc_urls.num","price","size_bytes")),
+                          selectInput("y","Choose the y axis",choices = c("rating_count_tot","rating_count_ver","price","sup_devices.num","lang.num","ipadSc_urls.num")),
                           
                           actionButton("button","Plot")
                       ) 

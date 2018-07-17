@@ -101,7 +101,7 @@ shinyServer(
         
         cat11=input$cat1
         cat2<-as.factor(input$cat2)
-        grouped_data<-selected_data%>%filter(prime_genre==cat11)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
+        grouped_data<-selected_data%>%filter(prime_genre==cat11)%>%select(rating_count_tot,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
         
         ggplot(grouped_data, aes(x=user_rating))+ geom_bar()
         
@@ -116,21 +116,18 @@ shinyServer(
     
     barplo<-eventReactive(
       input$button1,{
-        # title2<-input$genreb
-        # bary<-input$yb
-        # barx<-input$xb
-        # get_genre=input$genreb
-        # grouped_data<-data()%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,cont_rating,sup_devices.num,lang.num)
-        # barplot(grouped_data,x=barx,y=bary)
-        
+      
+         get_genre=input$genreb
+         grouped_data<-data()%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
+    
         xb<-reactive({
-          data()[,input$xb]
+          grouped_data[,input$xb]
         })
         
         yb<-reactive({
-          data()[,input$yb]
+          grouped_data[,input$yb]
         })
-        barplot(xb(),yb())
+        barplot(xb(),yb(),main = ("A bar plot representation"), xlab = (input$xb),ylab = (input$yb))
       })
     output$bar<-renderPlot({
       barplo()
@@ -140,28 +137,19 @@ shinyServer(
     scatt<-eventReactive(
       
       input$button,{
-       #  scatter<-input$y
-       #  scatter2<-input$x
-       #  get_genre2=input$genre2
-       #  
-       # # grouped_data<-data()%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,user_rating,
-       #     #   cont_rating,sup_devices.num,lang.num,ipadSc_urls.num,price,size_bytes)
-       #  
-       #  
-       #  #qplot(scatter2, scatter, data=grouped_data)
-       #  
-       #  ggplot(grouped_data, aes(x=scatter2, y=scatter)) + geom_point()
-       #  
-       # plot(data(),x=scatter2, y=scatter, main = "A scatter plot of "+scatter+ "vs"+"scatter2")
+      
+        get_genre2=input$genre2
         
+       grouped_data<-data()%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
+      
         x<-reactive({
-          data()[,input$x]
+          grouped_data[,input$x]
         })
         
         y<-reactive({
-          data()[,input$y]
+          grouped_data[,input$y]
         })
-        plot(x(),y(),main = "")
+        plot(x(),y(),main = ("A scatter plot representation"), xlab = (input$x),ylab = (input$y))
         
       })
     output$scata <- renderPlot({scatt()})
