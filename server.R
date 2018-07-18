@@ -29,12 +29,40 @@ shinyServer(
     
     
     
+    output$sentiment<-renderPlot({
       
+      grouped_data2<-data2()%>%select(app_desc)
+      
+      data3 = gsub("[[:punct:]]", "",grouped_data2 )
+      data4 = gsub("[[:punct:]]", "", data3)
+      data5 = gsub("[[:digit:]]", "", data4)
+      data6 = gsub("[[:cntrl:]]", "", data5)
+      data7 = tolower(data6)
+      word.list=strsplit(data7)
+      data8=unlist(word.list)
+      
+      wordcloud(data8, min.freq=5, max.word=Inf,width=1000,height=1000,random.order=FALSE)
+      
+      
+      
+      
+      sent1 <- get_nrc_sentiment(data8)
+      sent2 <- data.frame(colSums(sent1[,]))
+      names(sent2) <- "Score"
+      sent2 <- cbind("sentiment" = rownames(sent2), sent2)
+      rownames(sent2) <- NULL
+      ggplot(sent2, aes(x = sentiment, y = Score)) +
+        geom_bar(aes(fill = sentiment), stat = "identity") + 
+        theme(legend.position = "none") +
+        xlab("Emotions and Polarity") +
+        ylab("Sentiment Score") + 
+        ggtitle()
+      
+      
+      
+      
+    })
     
-    # data for sentiment analysis
-      #score.sentiments<-function(sentences,pos.words,neg.words,.progress='none'){}
-
-   
     
     # returns the file
     output$data<-renderTable({
@@ -167,7 +195,8 @@ shinyServer(
         y<-reactive({
           grouped_data[,input$y]
         })
-        plot(x(),y(),main = ("A scatter plot representation"), xlab = (input$x),ylab = (input$y))
+        plot(x(),y(),main = ("A scatter plot representation"), cex = 1.3,pch = 16,col = "blue", xlab = (input$x),ylab = (input$y)) 
+        abline(lm(x()~y()))
         
       })
     output$scata <- renderPlot({scatt()})
@@ -195,4 +224,13 @@ shinyServer(
        ggplot(data3, aes(x = prime_genre, y = freq)) + geom_bar(stat = "identity")
      })
     
+     output$image<-renderImage({
+       if("True"){
+         return(list(
+           src="www/s.jpg",
+           contentType="image/jpg",
+           alt="image failed to display"))}
+     })
+     
+     
   })

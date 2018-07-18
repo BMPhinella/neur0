@@ -8,6 +8,7 @@ library(RCurl)
 library(stringr)
 library(httr)
 library(wordcloud)
+library(png)
 
 #data<-read.csv(file.choose(),header = T)
 
@@ -46,7 +47,7 @@ ui<-fluidPage(
                     
                     uiOutput("selectfile"),
                     
-                    menuItem("",tabName = ""),
+                   menuItem("",tabName = ""),
                     menuItem("About", tabName = "home"),
                     
                     br(),
@@ -57,9 +58,10 @@ ui<-fluidPage(
                              menuSubItem("Scatter Plot",tabName = "scat")),
                              
                     br(),
+                    menuItem("Sentiment Analysis",tabName = "sentiment"),
+                    br(),
                     menuItem("Summary", tabName = "comp",
                              menuSubItem("File Property",tabName = "data"),
-                             menuSubItem("File Path",tabName = "path"),
                              menuSubItem("Structure",tabName = "struc"),
                              menuSubItem("Summary",tabName = "summ")
                     ),
@@ -73,7 +75,8 @@ ui<-fluidPage(
                 ),
                 
                 dashboardBody(
-                  uiOutput("table"),
+                  imageOutput("image",height = 20),
+                
                   
                   tabItems(
                     
@@ -180,9 +183,9 @@ ui<-fluidPage(
                                                                           "Health & Fitness","Entertainment","Photo & Video",
                                                                           "Lifestyle","Food & Drink")),
                           
-                          selectInput("x","Choose the x axis",choices = c("rating_count_tot","rating_count_ver","price","sup_devices.num","lang.num","ipadSc_urls.num")),
+                          selectInput("x","Choose the x axis",choices = c("rating_count_tot","rating_count_ver","user_rating","user_rating_ver")),
                           
-                          selectInput("y","Choose the y axis",choices = c("rating_count_tot","rating_count_ver","price","sup_devices.num","lang.num","ipadSc_urls.num")),
+                          selectInput("y","Choose the y axis",choices = c("price","sup_devices.num","lang.num","ipadSc_urls.num")),
                           
                           actionButton("button","Plot")
                       ) 
