@@ -2,7 +2,12 @@ library(shiny)
 library(shinydashboard)
 library(dplyr)
 library(DT)
+library(plyr)
 library(ggplot2)
+library(RCurl)
+library(stringr)
+library(httr)
+
 
 #data<-read.csv(file.choose(),header = T)
 
