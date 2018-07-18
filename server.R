@@ -3,7 +3,7 @@ options(shiny.maxRequestSize=30*1024^2)
 shinyServer(
   
   function(input,output){
-    selected_data<-as.data.frame(file)
+  #  selected_data<-as.data.frame(file1)
     #accessing the data in the file
     
     data<- reactive({
@@ -17,50 +17,24 @@ shinyServer(
     
     # data for sentiment analysis
     
-  
+    
+    data2<- reactive({
       file2<- input$file1
+      if(is.null(file2)){
+        return()
+      }
+      sentfile <- read.csv(file = input$file1$datapath,T,sep = ",")
+      return(sentfile)
+    })
+    
+    
+    
       
     
     # data for sentiment analysis
-    grouped_data2<-file2%>%select(app_desc)
-    
-    data3 = gsub("[[:punct:]]", "",grouped_data2 )
-    data4 = gsub("[[:punct:]]", "", data3)
-    data5 = gsub("[[:digit:]]", "", data4)
-    data6 = gsub("[[:cntrl:]]", "", data5)
-    data7 = tolower(data6)
-     word.list=strsplit(data7)
-    data8=unlist(word.list)
-  
-    View(data8)
-    
-    sent1 <- get_nrc_sentiment(data8[1:10])
-    sent2 <- data.frame(colSums(sent1[,]))
-    names(sent2) <- "Score"
-    sent2 <- cbind("sentiment" = rownames(sent2), sent2)
-    rownames(sent2) <- NULL
-    ggplot(sent2, aes(x = sentiment, y = Score)) +
-      geom_bar(aes(fill = sentiment), stat = "identity") + 
-      theme(legend.position = "none") +
-      xlab("Emotions and Polarity") +
-      ylab("Sentiment Score") + 
-      ggtitle()
-    
-    # pander::pandoc.table(nrc_data[, 1:8], split.table = Inf)
-    # pander::pandoc.table(nrc_data[, 9:10])
-    # barplot(
-    #   sort(colSums(prop.table(nrc_data[, 1:8]))), 
-    #   horiz = TRUE, 
-    #   cex.names = 0.7, 
-    #   las = 1, 
-    #   main = "Emotions in Sample text", xlab="Percentage"
-    # )
-    
-    
-    
-    
-    
-    
+      #score.sentiments<-function(sentences,pos.words,neg.words,.progress='none'){}
+
+   
     
     # returns the file
     output$data<-renderTable({

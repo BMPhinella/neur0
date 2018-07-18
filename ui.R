@@ -7,7 +7,7 @@ library(ggplot2)
 library(RCurl)
 library(stringr)
 library(httr)
-
+library(wordcloud)
 
 #data<-read.csv(file.choose(),header = T)
 
