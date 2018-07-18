@@ -156,7 +156,10 @@ shinyServer(
   
     #bar pplot table panel
     output$f<- renderPlot({
+      
+      
       data3<-count(data(),"prime_genre")
+    
       
       ggplot(data3, aes(x = prime_genre, y = freq)) + geom_bar(stat = "identity")
     })
