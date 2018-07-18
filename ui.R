@@ -9,10 +9,7 @@ library(stringr)
 library(httr)
 library(wordcloud)
 library(png)
-
-#data<-read.csv(file.choose(),header = T)
-
-#selected_data<-as.data.frame(file)
+library(syuzhet)
 
 
 ui<-fluidPage(
@@ -36,10 +33,9 @@ ui<-fluidPage(
                                                text = "This is an iOs mobile application analysis system",
                                                icon("users")
                                              )
-                                             
-                                )
-                                
-                ),
+                                        )
+                                      ),
+                
                 dashboardSidebar(
                   
                   sidebarMenu(
@@ -47,7 +43,6 @@ ui<-fluidPage(
                     
                     uiOutput("selectfile"),
                     
-                   menuItem("",tabName = ""),
                     menuItem("About", tabName = "home"),
                     
                     br(),
@@ -66,7 +61,9 @@ ui<-fluidPage(
                              menuSubItem("Summary",tabName = "summ")
                     ),
                     br(),
-                    menuItem("Help", tabName = "help"),
+                   menuItem("Help", tabName = "help"),
+                   br(),
+                    menuItem("Reference", tabName = "ref"),
                     br(),
                     fileInput("file","Upload a file"),
                     fileInput("file1","File for Sentiment Analysis")
@@ -133,8 +130,7 @@ ui<-fluidPage(
                             h2("Goals"),
                             
                             p("To help app developers study the relationship between app details 
-                              and user ratings to help them increase the user ratings for their 
-                              own apps by developing apps with relavant features"),
+                              and user ratings so as to know which apps to develop"),
                             br(),
                             h4("System developers"),
                             h5("Best Mugisa"),
@@ -143,10 +139,7 @@ ui<-fluidPage(
                             
                             
                             ),
-                    
-                    
-                    
-                    
+                  
                     tabItem(tabName = "help",
                             
                             h2("GUIDELINES ON HOW TO USE THE SYSTEM"),
@@ -175,7 +168,7 @@ ui<-fluidPage(
                     
                     
                     tabItem(tabName = "scat",fluidRow(
-                      box(title = "Representation of the data set using a scatter plot", solidHeader = TRUE, height = "70%",
+                      box(title = "Relationship between the different application features using a scatter plot", solidHeader = TRUE, height = "70%",
                           
                           selectInput("genre2","Choose Genre",choices = c("Games","Finance","Productivity",
                                                                           "Reference","Music","Utilities","Travel",
@@ -190,6 +183,13 @@ ui<-fluidPage(
                           actionButton("button","Plot")
                       ) 
                     ),plotOutput("scata")),
+                    
+                    
+                    
+                    #sentiment analysis
+                    tabItem(tabName = "sentiment",fluidRow(
+                     
+                    ),plotOutput("sentr")),
                     
                     
                     #barplot all categories
