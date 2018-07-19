@@ -38,11 +38,12 @@ shinyServer(
       sentimentscores <- cbind("sentiment" = rownames(sentimentscores), sentimentscores)
       rownames(sentimentscores) <- NULL
       ggplot(sentimentscores, aes(x = sentiment, y = Score)) +
-        geom_bar(aes(fill = sentiment), stat = "identity") + 
-        theme(legend.position = "none") +
-        xlab("Emotions and Polarity") +
-        ylab("Sentiment Score") + 
-        ggtitle("A graph showing sentiment analysis")
+        geom_bar(aes(fill =sentiment ), stat = "identity") + 
+        theme(legend.position = "none") + xlab("Emotions and Polarity") +ylab("Sentiment Score") + 
+        ggtitle("Analysis of the app description") + theme(
+          plot.title = element_text(color="#0033cc", size=20, face="bold",hjust = 0.5),
+          axis.title.x = element_text(color="#990033", size=14, face="bold"),
+          axis.title.y = element_text(color="#990033", size=14, face="bold"))
       
     })
     
@@ -56,15 +57,9 @@ shinyServer(
     
       
     output$summ <- renderTable({
-       summary(input$file)
+       data
     })
-    
-    
-    # output$selectfile<-renderUI({
-    #   if(is.null(input$file)){return()}
-    #    selectInput("sel","This is the uploaded file",choices = input$file$name)
-    # })
-    # 
+ 
 
     # histogram
     histo<-eventReactive(
@@ -147,7 +142,7 @@ shinyServer(
             plot.title = element_text(color="#0033cc", size=20, face="bold",hjust = 0.5),
             axis.title.x = element_text(color="#990033", size=14, face="bold"),
             axis.title.y = element_text(color="#990033", size=14, face="bold")
-          ) +abline(lm(x()~y()))
+          ) +geom_smooth(method='lm')
         
       
        

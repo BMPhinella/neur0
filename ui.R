@@ -147,7 +147,7 @@ ui<-fluidPage(
                     tabItem(tabName = "data", tableOutput("data")),
                     tabItem(tabName = "path", tableOutput("path")),
                     tabItem(tabName = "struc", verbatimTextOutput("struc")),
-                    tabItem(tabName = "summ", verbatimTextOutput("summ")),
+                    tabItem(tabName = "summ", tableOutput("summ")),
                     
                     #histogram
                     tabItem(tabName = "hist",fluidRow(
