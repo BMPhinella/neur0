@@ -110,9 +110,11 @@ ui<-fluidPage(
                             p("For the system to be able to perform all the different functionalities,
                               the columns within the uploaded data set should correspond to those in the APPLE STORE and APPLE STORE DESCRIPTION datasets"),
                             br(),
-                            h4("* Upload button"),
-                            p("The upload button enables one to upload a dataset that contains
-                              the data which the system would analyse and find different statistics "),
+                            h2("* Upload buttons"),
+                            h4("file1 button"),
+                            p("This button enables the user to upload a file which the system will be able to analyse
+                              and perform different statistics on the data\n 
+                              this data will be analysed when the user clicks on the visualization tab"),
                             br(),
                             h4("* About"),
                             p("The about menu item contains a brief description about the system, the objectives and  the goals.            
@@ -132,8 +134,8 @@ ui<-fluidPage(
                     
                     
                     #summary
-                    tabItem(tabName = "data", verbatimTextOutput("data")),
-                    tabItem(tabName = "path", dataTableOutput("path")),
+                    tabItem(tabName = "data", tableOutput("data")),
+                    tabItem(tabName = "path", tableOutput("path")),
                     tabItem(tabName = "struc", verbatimTextOutput("struc")),
                     tabItem(tabName = "summ", verbatimTextOutput("summ")),
                     

@@ -47,21 +47,16 @@ shinyServer(
     })
     
     
-    output$data<-renderTable({
-      if(is.null(input$file)){return()}
-      input$file
-    })
+    output$data<-renderTable({input$file })
+      
    
     
     output$struc<-renderPrint({
+      str(input$file) })
     
-      str(data()) 
-    })
-    
-    
-    output$summ <- renderTable({
       
-      summary(data())
+    output$summ <- renderPrint({
+       summary(input$file)
     })
     
     
@@ -83,7 +78,12 @@ shinyServer(
           
         grouped_data<-data()%>%filter(prime_genre==get_genre1)%>%select(rating_count_tot,user_rating,user_rating_ver,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
           
-        ggplot(grouped_data, aes(x=user_rating)) + ggtitle(substitute(atop("A histogram showing the user rating count of the"+ title)))+ geom_histogram( fill="red")+xlab("User ratings") + ylab("")
+        ggplot(grouped_data, aes(x=user_rating)) + 
+          ggtitle(substitute(atop("Frequency distribution of the user rating for"+ title)))+
+         geom_histogram( fill="#990033")+xlab("User ratings") + ylab("Counts")+ theme(
+          plot.title = element_text(color="#0033cc", size=20, face="bold",hjust = 0.5),
+          axis.title.x = element_text(color="#990033", size=14, face="bold"),
+          axis.title.y = element_text(color="#990033", size=14, face="bold"))
           
        
       })
@@ -141,10 +141,16 @@ shinyServer(
           grouped_data[,input$y]
         })
         
+        ggplot(grouped_data, aes(y=y(),x=x()) ) +xlab(input$x)+ylab(input$y)+
+          ggtitle(substitute(atop("RELATIONSHIP BETWEEN THE APP FEATURES")))+
+          geom_point(stat = "identity", fill="#990033")+ theme(
+            plot.title = element_text(color="#0033cc", size=20, face="bold",hjust = 0.5),
+            axis.title.x = element_text(color="#990033", size=14, face="bold"),
+            axis.title.y = element_text(color="#990033", size=14, face="bold")
+          ) +abline(lm(x()~y()))
+        
       
-       ggplot(grouped_data,aes(y=y(), x=x())) + ggtitle(substitute(atop("A scatter plot representation")))
-       + xlab(input$x) + ylab(input$y)+ geom_point() 
-        #abline(lm(x()~y()))
+       
         
       })
     
@@ -157,8 +163,14 @@ shinyServer(
       
       data3<-count(data(),"prime_genre")
     
+      ggplot(data3, aes(x = prime_genre, y = freq)) + 
+        ggtitle(substitute(atop("Total number of apps in a category")))+
+        geom_bar( fill="#990033",stat = "identity")+xlab("Prime_genre") + ylab("Number of apps")+ theme(
+          plot.title = element_text(color="#0033cc", size=20, face="bold",hjust = 0.5),
+          axis.title.x = element_text(color="#0033cc", size=14, face="bold"),
+          axis.title.y = element_text(color="#0033cc", size=14, face="bold"))
       
-      ggplot(data3, aes(x = prime_genre, y = freq)) + geom_bar(stat = "identity", fill="red")
+
     })
     
      output$u<-renderPlot({
