@@ -72,46 +72,10 @@ ui<-fluidPage(
                 ),
                 
                 dashboardBody(
-                  imageOutput("image",height = 20),
+                 # imageOutput("image",height = 20),
                 
-                  
+          
                   tabItems(
-                    
-                    tabItem(tabName = "bar",fluidRow(
-                      box(title = "Representation of the dataset using a bar plot", solidHeader = TRUE, height = "70%",
-                          
-                          selectInput("genreb","Choose Genre",choices = c("Games","Finance","Productivity",
-                                                                          "Reference","Music","Utilities","Travel",
-                                                                          "Social Networking","Sports","Business",
-                                                                          "Health & Fitness","Entertainment","Photo & Video",
-                                                                          "Lifestyle","Food & Drink")),
-                          selectInput("xb","Choose the x axis",choices = c("user_rating","user_rating_ver","price","sup_devices.num","lang.num","ipadSc_urls.num"), selected = ""),
-                          
-                          selectInput("yb","Choose the y axis",choices = c("user_rating","user_rating_ver","price","sup_devices.num","lang.num","ipadSc_urls.num"), selected = ""),
-                          
-                          actionButton("button1","Plot")
-                      )
-                    ),plotOutput("bar")),
-                    
-                    
-                    tabItem(tabName = "data", verbatimTextOutput("data")),
-                    tabItem(tabName = "path", dataTableOutput("path")),
-                    tabItem(tabName = "struc", verbatimTextOutput("struc")),
-                    tabItem(tabName = "summ", verbatimTextOutput("summ")),
-                    
-                    tabItem(tabName = "hist",fluidRow(
-                      
-                      box(title = "Reperesentation of the data using a histogram",
-                        selectInput("genre1","Choose Genre",choices = c("Games","Finance","Productivity",
-                                                                          "Reference","Music","Utilities","Travel",
-                                                                          "Social Networking","Sports","Business",
-                                                                          "Health & Fitness","Entertainment","Photo & Video",
-                                                                          "Lifestyle","Food & Drink")),
-                          actionButton("button2","Plot"))
-                    ),
-                      
-                    
-                    plotOutput("hist")),
                     
                     
                     tabItem(tabName = "home",
@@ -139,7 +103,7 @@ ui<-fluidPage(
                             
                             
                             ),
-                  
+                    
                     tabItem(tabName = "help",
                             
                             h2("GUIDELINES ON HOW TO USE THE SYSTEM"),
@@ -164,9 +128,62 @@ ui<-fluidPage(
                             
                             
                             
-                            ),
+                    ),
                     
                     
+                    #summary
+                    tabItem(tabName = "data", verbatimTextOutput("data")),
+                    tabItem(tabName = "path", dataTableOutput("path")),
+                    tabItem(tabName = "struc", verbatimTextOutput("struc")),
+                    tabItem(tabName = "summ", verbatimTextOutput("summ")),
+                    
+                    #histogram
+                    tabItem(tabName = "hist",fluidRow(
+                      
+                      box(title = "Reperesentation of the data using a histogram",
+                          selectInput("genre1","Choose Genre",choices = c("Games","Finance","Productivity",
+                                                                          "Reference","Music","Utilities","Travel",
+                                                                          "Social Networking","Sports","Business",
+                                                                          "Health & Fitness","Entertainment","Photo & Video",
+                                                                          "Lifestyle","Food & Drink")),
+                          actionButton("button2","Plot"))
+                    ),
+                    
+                    
+                    plotOutput("hist")),
+                    
+                    
+                    #User rating barplot
+                    tabItem(tabName = "bar",fluidRow(
+                      box(title = "Representation of the dataset using a bar plot", solidHeader = TRUE, height = "70%",
+                          
+                          selectInput("genreb","Choose Genre",choices = c("Games","Finance","Productivity",
+                                                                          "Reference","Music","Utilities","Travel",
+                                                                          "Social Networking","Sports","Business",
+                                                                          "Health & Fitness","Entertainment","Photo & Video",
+                                                                          "Lifestyle","Food & Drink")),
+                          selectInput("yb","Choose the y axis",choices = c("user_rating","user_rating_ver"), selected = ""),
+                          
+                          selectInput("xb","Choose the x axis",choices = c("user_rating","user_rating_ver,price","sup_devices.num","lang.num","ipadSc_urls.num"), selected = ""),
+                          
+                          actionButton("button1","Plot")
+                      )
+                    ),plotOutput("bar")),
+                    
+                    
+                    #barplot all categories
+                    tabItem(tabName = "box",fluidRow(
+                      tabsetPanel(type="tab",
+                                  tabPanel("Number of apps in a category ",plotOutput("f")),
+                                  tabPanel("User Rating",plotOutput("u"))
+                                  
+                                  
+                                  
+                      )
+                    ),plotOutput("boxp")),
+                    
+                    
+                    #scatter
                     tabItem(tabName = "scat",fluidRow(
                       box(title = "Relationship between the different application features using a scatter plot", solidHeader = TRUE, height = "70%",
                           
@@ -189,28 +206,7 @@ ui<-fluidPage(
                     #sentiment analysis
                     tabItem(tabName = "sentiment",fluidRow(
                      
-                    ),plotOutput("sentr")),
+                    ),plotOutput("sentr"))
                     
                     
-                    #barplot all categories
-                    tabItem(tabName = "box",fluidRow(
-                      tabsetPanel(type="tab",
-                                                   tabPanel("Full Range ",plotOutput("f")),
-                                                  tabPanel("Upper Range",plotOutput("u")),
-                                                   tabPanel("Lower Range",plotOutput("l"))
-                                                   
-                                           
-                                      )
-                    ),plotOutput("boxp"))
-                    
-                    
-                            )
-                  
-                  
-                  
-                  
-                    )
-                
-                
-                
-                  ))
+                      ) ) ))

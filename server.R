@@ -65,11 +65,11 @@ shinyServer(
     })
     
     
-    output$selectfile<-renderUI({
-      if(is.null(input$file)){return()}
-       selectInput("sel","This is the uploaded file",choices = input$file$name)
-    })
-    
+    # output$selectfile<-renderUI({
+    #   if(is.null(input$file)){return()}
+    #    selectInput("sel","This is the uploaded file",choices = input$file$name)
+    # })
+    # 
 
     # histogram
     histo<-eventReactive(
@@ -98,7 +98,7 @@ shinyServer(
       input$button1,{
       
          get_genre=input$genreb
-         grouped_data<-data()%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,user_rating_ver,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)%>%slice(1:10)
+         grouped_data<-data()%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,user_rating_ver,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
     
         xb<-reactive({
           grouped_data[,input$xb]
@@ -107,7 +107,9 @@ shinyServer(
         yb<-reactive({
           grouped_data[,input$yb]
         })
-        barplot(xb(),yb(),main = ("A bar plot representation"), xlab = (input$xb),ylab = (input$yb))
+        x<-input$xb
+        y<-input$yb
+        ggplot(grouped_data, aes(y=yb(),x=xb())) +xlab(x)+ylab(y)+ ggtitle(substitute(atop("A bar plot representation of"+x+"againsts"+y))) + geom_bar(stat = "identity")
       })
     
     
@@ -123,7 +125,7 @@ shinyServer(
       
         get_genre2=input$genre2
         
-       grouped_data<-data()%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,user_rating,user_rating_ver,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)%>%slice(1:10)
+       grouped_data<-data()%>%filter(prime_genre==get_genre2)%>%select(rating_count_tot,user_rating,user_rating_ver,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
       
         x<-reactive({
           grouped_data[,input$x]
@@ -151,22 +153,18 @@ shinyServer(
     })
     
      output$u<-renderPlot({
-       datau<-data()%>%select(user_rating)
+       datau<-data()%>%select(rating_count_tot)
+       
+      # data2<-count(data(),"rating_count_tot")
+       
+       data3<-count(data(),"prime_genre")
        
        
-       data3<-count(data(),"prime_genre")%>%select(user_rating)
-       
-       
-       
-       ggplot(data3, aes(x = prime_genre, y =data3$user_rating)) + geom_bar(stat = "identity")
+       user<-colMeans(datau)
+       ggplot(data3, aes(x = prime_genre, y =user)) + geom_bar(stat = "identity")
      })
     
-     # output$l<-renderPlot({
-     #   data3<-count(data(),"prime_genre")%>%slice(11:23)
-     #   
-     #   ggplot(data3, aes(x = prime_genre, y = freq)) + geom_bar(stat = "identity")
-     # })
-    
+     
      output$image<-renderImage({
        if("True"){
          return(list(
