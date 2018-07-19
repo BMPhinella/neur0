@@ -65,8 +65,8 @@ ui<-fluidPage(
                    br(),
                     menuItem("Reference", tabName = "ref"),
                     br(),
-                    fileInput("file","Upload a file"),
-                    fileInput("file1","File for Sentiment Analysis")
+                    fileInput("file","Upload AppleStore dataset"),
+                    fileInput("file1","Upload appleStore_description dataset")
                     
                   )
                 ),
@@ -81,52 +81,62 @@ ui<-fluidPage(
                     tabItem(tabName = "home",
                             
                             h2(" iOS Mobile Application Analysis System"),
-                            p("This is an iOS mobile application analysis system.
-                              It analyses the IOS mobile applications from apple store to have an insight
-                              and determine the patterns from the Apple store."),
+                            p("This is an iOS mobile application analysis system."), p("It analyses the AppleStore and appleStore_description
+                             datasets from apple store"),
                             
                             h2("Objectives"),
-                            p("To have an insight on the relationships between the different application features"),
-                            p("To have an insight on which category has the highest number  of applications"),
-                            p("To show the application statistics of the different categories"),
-                            p("To show how the different application features affect the user ratings"),
+                            p("To study the relationships between the different application features"),
+                              p("To show the application statistics of the different categories."),
+                              p("To show how the different application features affect the user ratings."),
+                              p("To show stribution of emotions within the application description."),
                             
                             h2("Goals"),
                             
-                            p("To help app developers study the relationship between app details 
-                              and user ratings so as to know which apps to develop"),
+                            p("To help app developers study the relationships between the different 
+                              application features and how the app features affect the user ratings."),
                             br(),
-                            h4("System developers"),
-                            h5("Best Mugisa"),
-                            p("Kekirunga Jean"),
-                            p("Kisiga Timothy")
+                            h4("About the developers"),
+                            p("The system was developed by a team of 3 students pursing a Bachelors in Software Engineering 
+                              at Makerere University."),
+                              p("The students put together the knowledge obtained from their Data science lectures to create this system."),
+                              p("The developers were:"),p("Best Mugisa"),p("Kekirunga Jean"),p("Kisiga Timothy")
+                    
                             
                             
                             ),
                     
                     tabItem(tabName = "help",
                             
-                            h2("GUIDELINES ON HOW TO USE THE SYSTEM"),
+                            h2("THE SYSTEM"),
                             p("For the system to be able to perform all the different functionalities,
-                              the columns within the uploaded data set should correspond to those in the APPLE STORE and APPLE STORE DESCRIPTION datasets"),
+                              the columns within the uploaded dataset should correspond to those in the APPLE STORE and APPLE STORE DESCRIPTION datasets."),
                             br(),
-                            h2("* Upload buttons"),
-                            h4("file1 button"),
-                            p("This button enables the user to upload a file which the system will be able to analyse
-                              and perform different statistics on the data\n 
-                              this data will be analysed when the user clicks on the visualization tab"),
+                            h4("* Upload buttons"),
+                            p(h4("file1 button")),
+                            p("This button enables the user to upload the appleStore dataset which the system will analyse
+                              and perform different statistics on."),
+                            p("The analysis performed by the system on the data will be observed on clicking the visualization menu item
+                              within which different graphs are used."),
+                              p("The different graphs under visualization are able to display different statistics on the data."),
+                            
+                            h4("file2 button"),
+                            p("This button enables the user to upload the applestore_description dataset
+                              on which the system will perform a sentiment analysis."),
                             br(),
                             h4("* About"),
-                            p("The about menu item contains a brief description about the system, the objectives and  the goals.            
-                              It also contains a brief information about the project team that developed the system"),
+                            p("The about menu item contains a brief description of the system, objectives and goals."),            
+                              p("It also contains brief information on the project team that developed the system."),
                             br(),
                             h4("* Visualization"),
-                            p("The visualization menu item enables the user to have an insight on the dataset using graphs ie histogram,barplot,line graph and scatter plot.                                                                                                                           
-                              Under visualization, this is where most if notall of the objectives of the systemare implemented from."),
+                            p("The visualization menu item enables the user to have an insight on the AppleStore dataset using graphs."),
+                              p("The different graphs used include histogram,barplot,line graph and scatter plot all of which 
+                              show different statistics about the data."),
+                              p("This is where most of the system functionalities are implemented from."),
                             br(),
-                            h4("* Sentimental Analysis"),
-                            p("In this menu item, the apple store description dataset is used and the system is able to determine 
-                              how the application description affects the user rating")
+                            h4("* Sentiment Analysis"),
+                            p("In this menu item, the appleStore_description dataset."),
+                            p("The system determines the emotions and polarities the app_description and gives a count of each
+                              ")
                             
                             
                             

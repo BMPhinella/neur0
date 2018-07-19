@@ -55,7 +55,7 @@ shinyServer(
       str(input$file) })
     
       
-    output$summ <- renderPrint({
+    output$summ <- renderTable({
        summary(input$file)
     })
     
