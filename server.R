@@ -96,10 +96,10 @@ shinyServer(
     #barplot
     barplo<-eventReactive(
       input$button1,{
-      
-         get_genre=input$genreb
-         grouped_data<-data()%>%filter(prime_genre==get_genre)%>%select(rating_count_tot,user_rating,user_rating_ver,rating_count_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
-    
+        
+        get_genre=input$genreb
+        grouped_data<-data()%>%filter(prime_genre==get_genre)%>%select(user_rating,user_rating_ver,price,sup_devices.num,lang.num,ipadSc_urls.num)
+        
         xb<-reactive({
           grouped_data[,input$xb]
         })
@@ -109,11 +109,17 @@ shinyServer(
         })
         x<-input$xb
         y<-input$yb
-        ggplot(grouped_data, aes(y=yb(),x=xb())) +xlab(x)+ylab(y)+ ggtitle(substitute(atop("A bar plot representation of"+x+"againsts"+y))) + geom_bar(stat = "identity")
+        ggplot(grouped_data, aes(y=yb(),x=xb()) ) +xlab(input$xb)+ylab(input$yb)+
+          ggtitle(substitute(atop("HOW DIFFERENT APP FEATURES AFFECT THE USER RATING")))+
+          geom_bar(stat = "identity", fill="#990033")+ theme(
+            plot.title = element_text(color="#0033cc", size=20, face="bold",hjust = 0.5),
+            axis.title.x = element_text(color="#0033cc", size=14, face="bold"),
+            axis.title.y = element_text(color="#0033cc", size=14, face="bold")
+          )
       })
     
     
-    output$bar<-renderPlot({
+    output$bar1<-renderPlot({
       barplo()
     })
     
@@ -134,7 +140,10 @@ shinyServer(
         y<-reactive({
           grouped_data[,input$y]
         })
-        plot(x(),y(),main = ("A scatter plot representation"), cex = 1.3,pch = 16,col = "blue", xlab = (input$x),ylab = (input$y)) 
+        
+      
+       ggplot(grouped_data,aes(y=y(), x=x())) + ggtitle(substitute(atop("A scatter plot representation")))
+       + xlab(input$x) + ylab(input$y)+ geom_point() 
         #abline(lm(x()~y()))
         
       })

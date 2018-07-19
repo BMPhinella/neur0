@@ -162,13 +162,13 @@ ui<-fluidPage(
                                                                           "Social Networking","Sports","Business",
                                                                           "Health & Fitness","Entertainment","Photo & Video",
                                                                           "Lifestyle","Food & Drink")),
-                          selectInput("yb","Choose the y axis",choices = c("user_rating","user_rating_ver"), selected = ""),
+                          selectInput("xb","Choose the x axis",choices = c("user_rating","user_rating_ver")),
                           
-                          selectInput("xb","Choose the x axis",choices = c("user_rating","user_rating_ver,price","sup_devices.num","lang.num","ipadSc_urls.num"), selected = ""),
+                          selectInput("yb","Choose the y axis",choices = c("price","sup_devices.num","lang.num","ipadSc_urls.num")),
                           
                           actionButton("button1","Plot")
                       )
-                    ),plotOutput("bar")),
+                    ),plotOutput("bar1")),
                     
                     
                     #barplot all categories
@@ -193,9 +193,9 @@ ui<-fluidPage(
                                                                           "Health & Fitness","Entertainment","Photo & Video",
                                                                           "Lifestyle","Food & Drink")),
                           
-                          selectInput("x","Choose the x axis",choices = c("rating_count_tot","rating_count_ver","user_rating","user_rating_ver")),
+                          selectInput("x","Choose the x axis",choices = c("rating_count_tot","rating_count_ver","user_rating","user_rating_ver","price","sup_devices.num","lang.num","ipadSc_urls.num")),
                           
-                          selectInput("y","Choose the y axis",choices = c("price","sup_devices.num","lang.num","ipadSc_urls.num")),
+                          selectInput("y","Choose the y axis",choices = c("rating_count_tot","rating_count_ver","user_rating","user_rating_ver","price","sup_devices.num","lang.num","ipadSc_urls.num")),
                           
                           actionButton("button","Plot")
                       ) 
