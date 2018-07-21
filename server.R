@@ -169,16 +169,24 @@ shinyServer(
     })
     
      output$u<-renderPlot({
-       datau<-data()%>%select(rating_count_tot)
-       
-      # data2<-count(data(),"rating_count_tot")
-       
-       data3<-count(data(),"prime_genre")
+       data4<-count(data(),"track_name") 
        
        
-       user<-colMeans(datau)
-       ggplot(data3, aes(x = prime_genre, y =user)) + geom_bar(stat = "identity")
-     })
+       grouped_data<-data()%>%select(user_rating,user_rating_ver,track_name)
+       
+       yb<-reactive({
+         grouped_data[,input$y11]
+       })
+       y<-input$y11
+       ggplot(grouped_data, aes(y=user_rating,x=as.factor(track_name) )) +xlab("track_name")+ylab(input$y11)+
+         ggtitle(substitute(atop("APPS WITH THE HIGHEST USER RATING")))+
+         geom_histogram(stat = "identity", fill="#990033")+ theme(
+           plot.title = element_text(color="#0033cc", size=20, face="bold",hjust = 0.5),
+           axis.title.x = element_text(color="#0033cc", size=14, face="bold"),
+           axis.title.y = element_text(color="#0033cc", size=14, face="bold")
+         )
+       
+           })
     
      
      output$image<-renderImage({

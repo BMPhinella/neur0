@@ -43,7 +43,7 @@ ui<-fluidPage(
                     
                     uiOutput("selectfile"),
                     
-                    menuItem("About", tabName = "home"),
+                    menuItem("About", tabName = "home",icon=icon("cog")),
                     
                     br(),
                     menuItem("Visualization", tabName = "visual",
@@ -53,15 +53,15 @@ ui<-fluidPage(
                              menuSubItem("Scatter Plot",tabName = "scat")),
                              
                     br(),
-                    menuItem("Sentiment Analysis",tabName = "sentiment"),
+                    menuItem("Sentiment Analysis",tabName = "sentiment",icon=icon("tachometer")),
                     br(),
-                    menuItem("Summary", tabName = "comp",
+                    menuItem("Summary", tabName = "comp",icon=icon("hourglass"),
                              menuSubItem("File Property",tabName = "data"),
                              menuSubItem("Structure",tabName = "struc"),
                              menuSubItem("Summary",tabName = "summ")
                     ),
                     br(),
-                   menuItem("Help", tabName = "help"),
+                   menuItem("Help", tabName = "help",icon=icon("question")),
                    br(),
                     menuItem("Reference", tabName = "ref"),
                     br(),
@@ -187,12 +187,11 @@ ui<-fluidPage(
                     tabItem(tabName = "box",fluidRow(
                       tabsetPanel(type="tab",
                                   tabPanel("Number of apps in a category ",plotOutput("f")),
-                                  tabPanel("User Rating",plotOutput("u"))
-                                  
-                                  
-                                  
-                      )
-                    ),plotOutput("boxp")),
+                                  tabPanel("Top trending apps",
+                                 selectInput("y11","Choose the y axis",choices = c("user_rating","user_rating_ver")),
+                                  plotOutput("u"))
+                                )
+                    )),
                     
                     
                     #scatter
